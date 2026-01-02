@@ -1,0 +1,91 @@
+.main-section {
+    background-color: #EFF1F0;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+
+}
+
+.main-section > div {
+    width: 50%;
+    height: 100%;
+    padding: 20px;
+}
+
+
+
+.tasks h2{
+    text-align: center;
+    margin-bottom: 30px;
+    color: rgb(92, 91, 91);
+}
+
+.main-section .card {
+    background-color: white;
+    padding: 10px;
+    border-radius: 15px;
+    width: 90%;
+    margin: auto;
+    min-width: 200px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: rgb(92, 91, 91);
+    transition: all 0.3s ease;
+     font-weight: 300;
+    font-size: 15px;
+}
+
+
+
+.main-section .card div {
+    display: flex;
+    gap: 10px;
+}
+
+.task-priority.high {
+  color: red;
+}
+
+.task-priority.medium {
+  color: orange;
+}
+
+.task-priority.low {
+  color: green;
+}
+
+
+.dot {
+    font-size: 50px;
+}
+
+#task-name {
+    font-size: 30px;
+}
+span {
+    height: 80%;
+    margin: auto 0;
+    border: 1px solid #DFE2E1;
+}
+
+@media (max-width: 600px) {
+    .main-section .card {
+        flex-direction: column;
+        height: fit-content;
+    }
+
+    .main-section {
+        flex-direction: column;
+    }
+
+    .main-section > div {
+        width: 88%;
+    }
+
+    span {
+        width: 0;
+        height: 0;
+    }
+}
