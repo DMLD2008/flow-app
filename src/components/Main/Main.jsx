@@ -1,7 +1,32 @@
 import React from "react";
 import "./Main.css";
 
-const MainSection = ({tasks}) => {
+const MainSection = ({tasks}, {addTask}) => {
+
+    const [name, setName] = useState("");
+    const [category, setCategory] = useState("");
+    const [priority, setPriority] = useState("Low");
+
+    const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!name.trim()) return;
+
+    const newTask = {
+        name,
+        category,
+        priority,
+        completed: false,
+    };
+
+    addTask(newTask);
+
+    setName("");
+    setCategory("");
+    setPriority("Low");
+    };
+
+
     return (
         <div className="main-section">
             <div className="tasks">
@@ -15,6 +40,7 @@ const MainSection = ({tasks}) => {
                             <div>
                                 <p className="task-category">{task.category}</p>
                                 <p className={`task-priority ${task.priority.toLowerCase()}`} >{task.priority}</p>
+                                <img src="src/assets/trashcan.svg"  />
                             </div>
                         </div>
                     ))
@@ -25,7 +51,20 @@ const MainSection = ({tasks}) => {
                 )}
             </div>
             <span></span>
-            <div className="addTasks"></div>
+            <div className="addTasks">
+                <h2>Add New Task</h2>
+                <form className="addTask-form" onSubmit={handleSubmit}>
+                    <input type="text" placeholder="Task Name" value={name} onChange={(e) => setName(e.target.value)} />
+                    <input type="text" placeholder="Category" value={category} onChange={(e) => setCategory(e.target.value)} />
+                    <select name="priority" id="priority-select" value={priority} onChange={(e) => setPriority(e.target.value)}>
+                        <option value="">Select Priority</option>
+                        <option value="high">High</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                    </select>
+                    <button type="submit">Add Task</button>
+                </form>
+            </div>
         </div>
     )
 }

@@ -57,6 +57,18 @@
     font-size: 30px;
 }
 
+.priority-card.priority-high {
+    color: red;
+}
+
+.priority-card.priority-medium {
+    color: orange;
+}
+
+.priority-card.priority-low {
+    color: green;
+}
+
 @media (max-width: 600px) {
     .sidebar {
         height: 100vh;

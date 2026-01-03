@@ -6,16 +6,20 @@ import MainSection from './components/Main/Main';
 
 
 function App() {
-  let categories = ["Money", "Important", "Health"];
+  const [categories, setCategories] = useState(["Money", "Important", "Health"]);
   const priorityLevels = ["High", "Medium", "Low"];
-  let tasks = [
+  const [tasks, setTasks] = useState([
     {
       name: "work",
       category: "Money",
       priority: "High",
       completed: false
     }
-  ];
+  ]);
+
+  const addTask = (task) => {
+    setTasks([...tasks, task]);
+  }
  
 
   
@@ -25,7 +29,7 @@ function App() {
       <Navbar />
       <div className='container'>
         <Sidebar categories={categories} priorityLevels={priorityLevels} />
-        <MainSection tasks={tasks} />
+        <MainSection tasks={tasks} addTask={addTask} />
       </div>
     </div>
 
