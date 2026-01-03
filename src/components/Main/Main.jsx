@@ -1,7 +1,8 @@
 import React from "react";
 import "./Main.css";
+import { useState } from "react";
 
-const MainSection = ({tasks}, {addTask}) => {
+const MainSection = ({tasks, addTask, deleteTask }) => {
 
     const [name, setName] = useState("");
     const [category, setCategory] = useState("");
@@ -40,7 +41,10 @@ const MainSection = ({tasks}, {addTask}) => {
                             <div>
                                 <p className="task-category">{task.category}</p>
                                 <p className={`task-priority ${task.priority.toLowerCase()}`} >{task.priority}</p>
-                                <img src="src/assets/trashcan.svg"  />
+                                <img src="src/assets/trashcan.svg"  onClick={(e) => {
+                                    e.stopPropagation(); 
+                                    deleteTask(index);
+                                }}/>
                             </div>
                         </div>
                     ))
@@ -58,9 +62,9 @@ const MainSection = ({tasks}, {addTask}) => {
                     <input type="text" placeholder="Category" value={category} onChange={(e) => setCategory(e.target.value)} />
                     <select name="priority" id="priority-select" value={priority} onChange={(e) => setPriority(e.target.value)}>
                         <option value="">Select Priority</option>
-                        <option value="high">High</option>
-                        <option value="medium">Medium</option>
-                        <option value="low">Low</option>
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
                     </select>
                     <button type="submit">Add Task</button>
                 </form>
