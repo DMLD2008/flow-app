@@ -2,7 +2,7 @@ import React from "react";
 import "./Main.css";
 import { useState } from "react";
 
-const MainSection = ({tasks, addTask, deleteTask }) => {
+const MainSection = ({tasks, addTask, deleteTask, categories }) => {
 
     const [name, setName] = useState("");
     const [category, setCategory] = useState("");
@@ -12,6 +12,8 @@ const MainSection = ({tasks, addTask, deleteTask }) => {
     e.preventDefault();
 
     if (!name.trim()) return;
+    if (!category.trim()) return;
+
 
     const newTask = {
         name,
@@ -37,9 +39,9 @@ const MainSection = ({tasks, addTask, deleteTask }) => {
                          
 
                         <div className="task-card card" key={index}>
-                            <p className="task-name" id="task-name">{task.name}</p>
+                            <p className="task-name" id="task-name">{task.name.charAt(0).toUpperCase() + task.name.slice(1)}</p>
                             <div>
-                                <p className="task-category">{task.category}</p>
+                                <p className="task-category">{task.category.charAt(0).toUpperCase() + task.category.slice(1)}</p>
                                 <p className={`task-priority ${task.priority.toLowerCase()}`} >{task.priority}</p>
                                 <img src="src/assets/trashcan.svg"  onClick={(e) => {
                                     e.stopPropagation(); 
@@ -58,8 +60,8 @@ const MainSection = ({tasks, addTask, deleteTask }) => {
             <div className="addTasks">
                 <h2>Add New Task</h2>
                 <form className="addTask-form" onSubmit={handleSubmit}>
-                    <input type="text" placeholder="Task Name" value={name} onChange={(e) => setName(e.target.value)} />
-                    <input type="text" placeholder="Category" value={category} onChange={(e) => setCategory(e.target.value)} />
+                    <input type="text" placeholder="Task Name" required value={name} onChange={(e) => setName(e.target.value)} />
+                    <input type="text" placeholder="Category" required value={category} onChange={(e) => setCategory(e.target.value)} list="category-options"/>
                     <select name="priority" id="priority-select" value={priority} onChange={(e) => setPriority(e.target.value)}>
                         <option value="">Select Priority</option>
                         <option value="High">High</option>
@@ -67,6 +69,11 @@ const MainSection = ({tasks, addTask, deleteTask }) => {
                         <option value="Low">Low</option>
                     </select>
                     <button type="submit">Add Task</button>
+                    <datalist id="category-options">
+                    {categories.map((cat, index) => (
+                                <option value={cat} key={index} />
+                    ))}
+                    </datalist>
                 </form>
             </div>
         </div>

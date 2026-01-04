@@ -8,11 +8,12 @@ const Sidebar = ({ categories, priorityLevels }) => {
       <hr className="sidebar-divider" />
       <div className="sidebar-section">
         <p>Categories</p>
-
+        <div className="card">All</div>
+        
         {categories.length > 0 ? (
           categories.map((category, index) => (
             <div className="category-card card" key={index}>
-              {category}
+              {category.charAt(0).toUpperCase() + category.slice(1)}
             </div>
           ))
         ) : (
@@ -25,6 +26,7 @@ const Sidebar = ({ categories, priorityLevels }) => {
 
       <div className="sidebar-section">
         <p>priority</p>
+        <div className="card">All</div>
         {priorityLevels.map((level, index) => (
           <div
             key={index}

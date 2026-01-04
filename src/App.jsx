@@ -6,6 +6,8 @@ import MainSection from './components/Main/Main';
 import { useEffect } from 'react';
 
 
+
+
 function App() {
   const [categories, setCategories] = useState(() => {
   const savedCategories = localStorage.getItem("categories");
@@ -17,6 +19,11 @@ function App() {
     return savedTasks ? JSON.parse(savedTasks) : [];
   });
 
+  const normalizeCategory = (category) => {
+  return category.trim().toLowerCase();
+};
+
+
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
@@ -26,6 +33,7 @@ function App() {
 }, [categories]);
 
   const addTask = (task) => {
+    task.category = normalizeCategory(task.category);
     setTasks([...tasks, task]);
 
     if (task.category && !categories.includes(task.category)) {
@@ -58,7 +66,7 @@ function App() {
       <Navbar />
       <div className='container'>
         <Sidebar categories={categories} priorityLevels={priorityLevels} />
-        <MainSection tasks={tasks} addTask={addTask} deleteTask={deleteTask} />
+        <MainSection tasks={tasks} addTask={addTask} deleteTask={deleteTask} categories={categories}/>
       </div>
     </div>
 
