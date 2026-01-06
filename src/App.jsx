@@ -48,17 +48,25 @@ function App() {
 }, [categories]);
 
   const addTask = (task) => {
-    task.category = normalizeCategory(task.category);
-    setTasks([...tasks, task]);
+    const normalizedCategory = normalizeCategory(task.category);
+      const normalizedPriority = normalizePriority(task.priority);
 
-    if (task.category && !categories.includes(task.category)) {
-      setCategories([...categories, task.category]);
+    const newTask = {
+    ...task,
+    category: normalizedCategory,
+       priority: normalizedPriority
+    };
+    setTasks([...tasks, newTask]);
+
+    if (normalizedCategory && !categories.includes(normalizedCategory)) {
+      setCategories([...categories, normalizedCategory]);
     }
   }
 
-  const deleteTask = (index) => {
-    const taskToDelete = tasks[index]; 
-  const updatedTasks = tasks.filter((_, i) => i !== index);
+  const deleteTask = (taskToDelete) => {
+  const updatedTasks = tasks.filter(
+    (task) => task !== taskToDelete
+  );
 
   setTasks(updatedTasks);
 
@@ -67,11 +75,12 @@ function App() {
   );
 
   if (!categoryStillExists) {
-    setCategories((prevCategories) =>
-      prevCategories.filter((cat) => cat !== taskToDelete.category)
+    setCategories((prev) =>
+      prev.filter((cat) => cat !== taskToDelete.category)
     );
   }
-  }
+};
+
  
 
   

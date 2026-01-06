@@ -8,7 +8,7 @@ const Sidebar = ({ categories, priorityLevels, setSelectedCategory, setSelectedP
       <hr className="sidebar-divider" />
       <div className="sidebar-section">
         <p>Categories</p>
-        <div className="card" onClick={() => setSelectedCategory("All")}>All</div>
+        <div className="card" onClick={() => setSelectedCategory("all")}>All</div>
         
         {categories.length > 0 ? (
           categories.map((category, index) => (
@@ -26,12 +26,12 @@ const Sidebar = ({ categories, priorityLevels, setSelectedCategory, setSelectedP
 
       <div className="sidebar-section">
         <p>priority</p>
-        <div className="card">All</div>
+        <div className="card" onClick={setSelectedPriority("all")}>All</div>
         {priorityLevels.map((level, index) => (
           <div
             key={index}
             className={`priority-card priority-${level.toLowerCase()} card`}
-            onClick={() => setSelectedPriority(level)}
+            onClick={() => setSelectedPriority(level.toLowerCase())}
           >
             {level}
           </div>
