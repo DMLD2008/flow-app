@@ -18,6 +18,21 @@ function App() {
     const savedTasks = localStorage.getItem("tasks");
     return savedTasks ? JSON.parse(savedTasks) : [];
   });
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedPriority, setSelectedPriority] = useState("all");
+
+  const filteredTasks = tasks.filter((task) => {
+  const categoryMatch =
+    selectedCategory === "all" ||
+    task.category === selectedCategory;
+
+  const priorityMatch =
+    selectedPriority === "all" ||
+    task.priority === selectedPriority;
+
+  return categoryMatch && priorityMatch;
+});
+
 
   const normalizeCategory = (category) => {
   return category.trim().toLowerCase();
@@ -65,8 +80,8 @@ function App() {
     <div className="App">
       <Navbar />
       <div className='container'>
-        <Sidebar categories={categories} priorityLevels={priorityLevels} />
-        <MainSection tasks={tasks} addTask={addTask} deleteTask={deleteTask} categories={categories}/>
+        <Sidebar categories={categories} priorityLevels={priorityLevels} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} selectedPriority={selectedPriority} setSelectedPriority={setSelectedPriority}/>
+        <MainSection tasks={filteredTasks} addTask={addTask} deleteTask={deleteTask} categories={categories}/>
       </div>
     </div>
 

@@ -1,18 +1,18 @@
 import React from "react";
 import "./Sidebar.css";
 
-const Sidebar = ({ categories, priorityLevels }) => {
+const Sidebar = ({ categories, priorityLevels, setSelectedCategory, setSelectedPriority }) => {
   return (
     <div className="sidebar" >
-      <p className="sidebar-greeting">Hi, <br /> Demilade</p>
+      <p className="sidebar-greeting">Hi, <br /> User</p>
       <hr className="sidebar-divider" />
       <div className="sidebar-section">
         <p>Categories</p>
-        <div className="card">All</div>
+        <div className="card" onClick={() => setSelectedCategory("All")}>All</div>
         
         {categories.length > 0 ? (
           categories.map((category, index) => (
-            <div className="category-card card" key={index}>
+            <div className="category-card card" key={index} onClick={() => setSelectedCategory(category)}>
               {category.charAt(0).toUpperCase() + category.slice(1)}
             </div>
           ))
@@ -31,6 +31,7 @@ const Sidebar = ({ categories, priorityLevels }) => {
           <div
             key={index}
             className={`priority-card priority-${level.toLowerCase()} card`}
+            onClick={() => setSelectedPriority(level)}
           >
             {level}
           </div>
