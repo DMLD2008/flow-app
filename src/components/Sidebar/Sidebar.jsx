@@ -26,7 +26,7 @@ const Sidebar = ({ categories, priorityLevels, setSelectedCategory, setSelectedP
 
       <div className="sidebar-section">
         <p>priority</p>
-        <div className="card" onClick={setSelectedPriority("all")}>All</div>
+        <div className="card" onClick={() => setSelectedPriority("all")}>All</div>
         {priorityLevels.map((level, index) => (
           <div
             key={index}
