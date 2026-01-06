@@ -16,7 +16,11 @@ function App() {
   const priorityLevels = ["High", "Medium", "Low"];
   const [tasks, setTasks] = useState(() => {
     const savedTasks = localStorage.getItem("tasks");
-    return savedTasks ? JSON.parse(savedTasks) : [];
+    return savedTasks ? JSON.parse(savedTasks).map((task) => ({
+      ...task,
+      category: task.category?.toLowerCase(),
+      priority: task.priority?.toLowerCase()
+    })) : [];
   });
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedPriority, setSelectedPriority] = useState("all");
@@ -38,6 +42,11 @@ function App() {
   return category.trim().toLowerCase();
 };
 
+const normalizePriority = (priority) => {
+  return priority.trim().toLowerCase();
+};
+
+
 
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -53,6 +62,7 @@ function App() {
 
     const newTask = {
     ...task,
+    id: crypto.randomUUID(),
     category: normalizedCategory,
        priority: normalizedPriority
     };
@@ -63,11 +73,10 @@ function App() {
     }
   }
 
-  const deleteTask = (taskToDelete) => {
-  const updatedTasks = tasks.filter(
-    (task) => task !== taskToDelete
-  );
+  const deleteTask = (id) => {
+  const taskToDelete = tasks.find((task) => task.id === id);
 
+  const updatedTasks = tasks.filter((task) => task.id !== id);
   setTasks(updatedTasks);
 
   const categoryStillExists = updatedTasks.some(

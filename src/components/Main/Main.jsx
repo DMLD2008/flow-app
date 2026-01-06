@@ -45,7 +45,7 @@ const MainSection = ({tasks, addTask, deleteTask, categories }) => {
                                 <p className={`task-priority ${task.priority.toLowerCase()}`} >{task.priority}</p>
                                 <img src="src/assets/trashcan.svg"  onClick={(e) => {
                                     e.stopPropagation(); 
-                                    deleteTask(index);
+                                    deleteTask(task.id);
                                 }}/>
                             </div>
                         </div>
